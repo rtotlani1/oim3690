@@ -118,7 +118,7 @@ Everything else
 Two <ul> lists, multiple <p> paragraphs, one <a> link to the course syllabus
 
 One thing to do on your end — add a delhi.jpg to your images/ folder, same place your photo.jpg lives. Otherwise that image just won't show.
-- **What I kept / changed / rejected**:
+- **What I kept / changed / rejected**: I changed the URL image that AI gave me since it was from wikipedia and the image wasn't visible properly.
 
 ### Interaction 3
 
