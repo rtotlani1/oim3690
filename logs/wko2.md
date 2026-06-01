@@ -93,13 +93,54 @@ html<!DOCTYPE html>
 ### Interaction 2
 
 - **What I asked**: 
+I want you to create for me, an about-me.html, with the semantic structure : <header>, <main>, <footer> with proper heading hierarchy and no skipping. One local image and one URL, both with descriptive alt. atleast one link, one list and a paragraph
 - **What AI gave me**: 
+Here's about-me.html. Here's what's in it and why:
+Semantic structure
+
+<header> — your name, tagline, and nav
+<main> — all the actual content
+<footer> — credit line at the bottom
+
+Heading hierarchy (no skips)
+
+<h1> → your name in the header
+<h2> → each major section (Who I Am, Where I'm From, etc.)
+<h3> → subsections within those (Cricket, Other Courses, Interests)
+
+Images
+
+Local: images/delhi.jpg — you'll need to add a photo of Delhi to your images/ folder with that filename
+URL: Babson campus photo pulled directly from Wikipedia, no download needed
+
+Everything else
+
+Two <ul> lists, multiple <p> paragraphs, one <a> link to the course syllabus
+
+One thing to do on your end — add a delhi.jpg to your images/ folder, same place your photo.jpg lives. Otherwise that image just won't show.
 - **What I kept / changed / rejected**:
 
 ### Interaction 3
 
 - **What I asked**: 
+how do I upload the delhi.jpg
 - **What AI gave me**: 
+Since your images/ folder already exists in your repo (that's where photo.jpg lives), here's how to add delhi.jpg to it:
+In VS Code (easiest):
+
+Find the images/ folder in the left sidebar
+Drag and drop your Delhi photo directly into it
+Rename it to delhi.jpg if it isn't already
+Then commit and push like normal in GitHub Desktop
+
+In GitHub Desktop:
+
+Just drag the file into your repo folder in Finder/Explorer
+Put it inside the images/ folder
+GitHub Desktop will automatically detect the new file
+Commit and push
+
+One thing to check — whatever photo you use, make sure the filename is exactly delhi.jpg (all lowercase). If it's Delhi.jpg or delhi.JPG it won't match the src in the HTML and the image won't load.
 - **What I kept / changed / rejected**:
 
 
