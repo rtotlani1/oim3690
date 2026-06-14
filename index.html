@@ -6,7 +6,7 @@
   <title>Rasesh Totlani — OIM3690</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
- 
+
     :root {
       --bg: #f9f7f4;
       --surface: #ffffff;
@@ -18,7 +18,7 @@
       --font: 'Georgia', serif;
       --sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     }
- 
+
     body {
       background: var(--bg);
       color: var(--text);
@@ -26,7 +26,13 @@
       line-height: 1.75;
       min-height: 100vh;
     }
- 
+
+    /* fluid images */
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
     /* ── Header ── */
     header {
       background: var(--surface);
@@ -34,7 +40,7 @@
       padding: 3rem 2rem 2.5rem;
       text-align: center;
     }
- 
+
     header .tag {
       display: inline-block;
       font-family: var(--sans);
@@ -47,7 +53,7 @@
       border-radius: 20px;
       margin-bottom: 1.25rem;
     }
- 
+
     header h1 {
       font-size: clamp(2rem, 5vw, 3rem);
       font-weight: normal;
@@ -55,24 +61,24 @@
       color: var(--text);
       margin-bottom: 0.4rem;
     }
- 
+
     header p.subtitle {
       font-family: var(--sans);
       font-size: 0.95rem;
       color: var(--muted);
     }
- 
+
     /* ── Main layout ── */
     main {
       max-width: 680px;
       margin: 0 auto;
       padding: 3rem 1.5rem 5rem;
     }
- 
+
     section {
       margin-bottom: 3rem;
     }
- 
+
     section h2 {
       font-family: var(--sans);
       font-size: 0.72rem;
@@ -83,34 +89,34 @@
       padding-bottom: 0.5rem;
       border-bottom: 1px solid var(--border);
     }
- 
+
     section p {
       font-size: 1.05rem;
       color: var(--text);
       margin-bottom: 1rem;
     }
- 
+
     /* ── Interests grid ── */
     .interests-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      grid-template-columns: 1fr;
       gap: 1rem;
       margin-top: 0.5rem;
     }
- 
+
     .interest-card {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 10px;
       padding: 1.2rem 1.25rem;
     }
- 
+
     .interest-card .icon {
       font-size: 1.4rem;
       margin-bottom: 0.5rem;
       display: block;
     }
- 
+
     .interest-card h3 {
       font-family: var(--sans);
       font-size: 0.9rem;
@@ -118,7 +124,7 @@
       color: var(--text);
       margin-bottom: 0.35rem;
     }
- 
+
     .interest-card p {
       font-family: var(--sans);
       font-size: 0.82rem;
@@ -126,7 +132,7 @@
       margin: 0;
       line-height: 1.5;
     }
- 
+
     /* ── Footer ── */
     footer {
       text-align: center;
@@ -136,18 +142,31 @@
       padding: 2rem;
       border-top: 1px solid var(--border);
     }
+
+    /* mobile-first media queries */
+    @media (min-width: 576px) {
+      .interests-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 768px) {
+      .interests-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
   </style>
 </head>
 <body>
- 
+
   <header>
     <div class="tag">OIM3690 · Babson College · Summer 2026</div>
     <h1>Rasesh Totlani</h1>
     <p class="subtitle">AI-Powered Web Development</p>
   </header>
- 
+
   <main>
- 
+
     <section>
       <h2>About Me</h2>
       <p>
@@ -157,7 +176,7 @@
         This course is part of that. OIM3690 is teaching me how to build real things on the web — from scratch, and with AI as a collaborator rather than a shortcut.
       </p>
     </section>
- 
+
     <section>
       <h2>Why This Course</h2>
       <p>
@@ -167,7 +186,7 @@
         By the end of the summer, I want to be able to look at a piece of web code — whether I wrote it or AI did — and actually know what's going on. That skill is going to matter whether I'm evaluating a vendor, managing a tech team, or building something for the business someday.
       </p>
     </section>
- 
+
     <section>
       <h2>Interests</h2>
       <div class="interests-grid">
@@ -193,12 +212,12 @@
         </div>
       </div>
     </section>
- 
+
   </main>
- 
+
   <footer>
     Rasesh Totlani &nbsp;·&nbsp; Babson College &nbsp;·&nbsp; OIM3690, Summer 2026
   </footer>
- 
+
 </body>
 </html>
