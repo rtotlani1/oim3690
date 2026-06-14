@@ -1,0 +1,22 @@
+body {
+  font-family: Arial, sans-serif;
+  color: #333;
+  margin: 40px;
+}
+
+h1 {
+  color: #1a1a1a;
+}
+
+#main-nav {
+  margin-top: 10px;
+}
+
+.highlight {
+  color: #C9A84C;
+  font-weight: bold;
+}
+
+a:hover {
+  color: #C9A84C;
+}
