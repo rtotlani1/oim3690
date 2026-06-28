@@ -40,6 +40,24 @@
         display: inline-block;
         cursor: pointer;
       }
+      .bounce-button.bouncing {
+        animation: bounce 0.6s ease;
+      }
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        30% {
+          transform: translateY(-10px);
+        }
+        60% {
+          transform: translateY(0);
+        }
+        80% {
+          transform: translateY(-4px);
+        }
+      }
     </style>
   </head>
   <body>
@@ -72,7 +90,13 @@
     </div>
 
     <div class="demo-section">
-      <h3>5. The Surprise Button</h3>
+      <h3>5. Bounce Button</h3>
+      <p>Click the button to make it bounce!</p>
+      <button id="bounceBtn" class="bounce-button">Bounce Me!</button>
+    </div>
+
+    <div class="demo-section">
+      <h3>6. The Surprise Button</h3>
       <button onclick="surpriseMe()">I dare you to click on me!</button>
     </div>
     <script>
@@ -114,7 +138,8 @@
         const dateString = now.toLocaleDateString();
         document.getElementById(
           "timeDisplay"
-        ).textContent = `🕐 ${timeString} on ${dateString}`;
+        ).textContent = `🕐 ${timeString}  now on to the ${dateString}`;
+        console.log('clicked');
       });
 
       function toggleText() {
@@ -131,6 +156,15 @@
         .addEventListener("click", function () {
           toggleText();
         });
+
+      const bounceBtn = document.getElementById("bounceBtn");
+      if (bounceBtn) {
+        bounceBtn.addEventListener("click", function () {
+          bounceBtn.classList.remove("bouncing");
+          void bounceBtn.offsetWidth;
+          bounceBtn.classList.add("bouncing");
+        });
+      }
 
       function surpriseMe() {
         window.alert("Surprise! 🎉");
