@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .card {
+      background: white;
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      width: 320px;
+    }
+
+    h1 {
+      margin-top: 0;
+      font-size: 24px;
+      color: #22395d;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #334e6f;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 14px;
+      border: 1px solid #c7d2e0;
+      border-radius: 8px;
+      box-sizing: border-box;
+    }
+
+    .checkbox-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      background: #2563eb;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .result {
+      margin-top: 16px;
+      padding: 12px;
+      background: #eef6ff;
+      border-radius: 8px;
+      color: #1e3a8a;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Checkout</h1>
+
+    <label for="total">Total</label>
+    <input id="total" type="number" placeholder="Enter total" />
+
+    <div class="checkbox-row">
+      <input id="member" type="checkbox" />
+      <label for="member">Member</label>
+    </div>
+
+    <button onclick="calculateCheckout()">Calculate</button>
+
+    <div class="result" id="result">
+      <p>Discount Applied: None</p>
+      <p>Final Price: $0.00</p>
+    </div>
+  </div>
+
+  <script>
+    function getDiscount(total, isMember) {
+      if (total >= 100 && isMember) {
+        return 20;
+      } else if (total >= 100 && !isMember) {
+        return 0;
+      }
+    }
+
+    function calculateCheckout() {
+      const total = Number(document.getElementById("total").value);
+      const isMember = document.getElementById("member").checked;
+      const discount = getDiscount(total, isMember);
+      const finalPrice = total - (total * discount / 100);
+
+      document.getElementById("result").innerHTML = `
+        <p>Discount Applied: ${discount}%</p>
+        <p>Final Price: $${finalPrice.toFixed(2)}</p>
+      `;
+    }
+  </script>
+</body>
+</html>

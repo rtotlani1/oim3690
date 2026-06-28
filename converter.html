@@ -1,3 +1,41 @@
-function toFahrenheit(celsius) {
-constt fn = (f) => c*9/5+32
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Temperature Converter</title>
+</head>
+<body>
+  <label for="celsius">Celsius:</label>
+  <input id="celsius" type="number" oninput="convertTemperature('celsius')" />
+
+  <label for="fahrenheit">Fahrenheit:</label>
+  <input id="fahrenheit" type="number" oninput="convertTemperature('fahrenheit')" />
+
+  <p id="result">Result: </p>
+
+  <script>
+    function toFahrenheit(celsius) {
+      return celsius * 9 / 5 + 32;
+    }
+
+    function toCelsius(fahrenheit) {
+      return (fahrenheit - 32) * 5 / 9;
+    }
+
+    function convertTemperature(source) {
+      if (source === "celsius") {
+        const celsius = Number(document.getElementById("celsius").value);
+        const fahrenheit = toFahrenheit(celsius);
+        document.getElementById("fahrenheit").value = fahrenheit;
+        document.getElementById("result").textContent = `Result: ${celsius}°C = ${fahrenheit.toFixed(1)}°F`;
+      } else {
+        const fahrenheit = Number(document.getElementById("fahrenheit").value);
+        const celsius = toCelsius(fahrenheit);
+        document.getElementById("celsius").value = celsius;
+        document.getElementById("result").textContent = `Result: ${celsius.toFixed(1)}°C = ${fahrenheit}°F`;
+      }
+    }
+  </script>
+</body>
+</html>
