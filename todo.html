@@ -107,6 +107,69 @@
         color: white;
       }
 
+      .summary {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        gap: 12px;
+        margin: 16px 0;
+        padding: 12px;
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+      }
+
+      .summary-item {
+        text-align: center;
+      }
+
+      .summary-label {
+        display: block;
+        font-size: 0.75rem;
+        color: #64748b;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        margin-bottom: 4px;
+      }
+
+      .summary-bar {
+        display: flex;
+        height: 10px;
+        border-radius: 999px;
+        overflow: hidden;
+        background: #e2e8f0;
+      }
+
+      .finished-bar {
+        background: #22c55e;
+        height: 100%;
+      }
+
+      .pending-bar {
+        background: #f59e0b;
+        height: 100%;
+      }
+
+      .actions-row {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 16px;
+      }
+
+      .clear-btn {
+        background: #64748b;
+        color: white;
+      }
+
+      .clear-btn:hover {
+        background: #475569;
+      }
+
+      .clear-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
       .empty-state {
         text-align: center;
         color: #64748b;
@@ -119,10 +182,29 @@
       <h1>📝 Todo App</h1>
       <p>Add a task, mark it done, or remove it.</p>
 
+      <div class="summary" aria-label="Task summary">
+        <div class="summary-item">
+          <span class="summary-label">Finished</span>
+          <strong id="finished-count">0</strong>
+        </div>
+        <div class="summary-bar" aria-label="Task progress">
+          <div id="finished-bar" class="finished-bar" style="width: 0%"></div>
+          <div id="pending-bar" class="pending-bar" style="width: 0%"></div>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Pending</span>
+          <strong id="pending-count">0</strong>
+        </div>
+      </div>
+
       <form id="todo-form" class="input-row">
         <input id="todo-input" type="text" placeholder="What needs to be done?" required />
         <button class="add-btn" type="submit">Add</button>
       </form>
+
+      <div class="actions-row">
+        <button id="clear-btn" class="clear-btn" type="button" disabled>Clear all</button>
+      </div>
 
       <ul id="todo-list"></ul>
     </div>
@@ -131,6 +213,11 @@
       const form = document.getElementById("todo-form");
       const input = document.getElementById("todo-input");
       const list = document.getElementById("todo-list");
+      const clearButton = document.getElementById("clear-btn");
+      const finishedCount = document.getElementById("finished-count");
+      const pendingCount = document.getElementById("pending-count");
+      const finishedBar = document.getElementById("finished-bar");
+      const pendingBar = document.getElementById("pending-bar");
 
       let todos = JSON.parse(localStorage.getItem("todos")) || [];
 
@@ -138,8 +225,23 @@
         localStorage.setItem("todos", JSON.stringify(todos));
       }
 
+      function updateSummary() {
+        const finished = todos.filter((todo) => todo.done).length;
+        const pending = todos.length - finished;
+        const total = todos.length || 1;
+        const finishedPercent = (finished / total) * 100;
+        const pendingPercent = (pending / total) * 100;
+
+        finishedCount.textContent = finished;
+        pendingCount.textContent = pending;
+        finishedBar.style.width = `${finishedPercent}%`;
+        pendingBar.style.width = `${pendingPercent}%`;
+        clearButton.disabled = todos.length === 0;
+      }
+
       function renderTodos() {
         list.innerHTML = "";
+        updateSummary();
 
         if (todos.length === 0) {
           list.innerHTML = '<li class="empty-state">No tasks yet. Add one above.</li>';
@@ -189,6 +291,12 @@
 
         saveTodos();
         input.value = "";
+        renderTodos();
+      });
+
+      clearButton.addEventListener("click", () => {
+        todos = [];
+        saveTodos();
         renderTodos();
       });
 
