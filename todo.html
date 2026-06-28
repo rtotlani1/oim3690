@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simple Todo App</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: Arial, sans-serif;
+      }
+
+      body {
+        margin: 0;
+        background: linear-gradient(135deg, #f5f7ff, #e8f0ff);
+        color: #1f2937;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+      }
+
+      .app {
+        width: min(100%, 480px);
+        background: white;
+        border-radius: 16px;
+        padding: 24px;
+        box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
+      }
+
+      h1 {
+        margin-top: 0;
+        margin-bottom: 8px;
+        font-size: 1.8rem;
+      }
+
+      p {
+        margin-top: 0;
+        color: #64748b;
+      }
+
+      .input-row {
+        display: flex;
+        gap: 8px;
+        margin: 16px 0;
+      }
+
+      input {
+        flex: 1;
+        padding: 10px 12px;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        font-size: 1rem;
+      }
+
+      button {
+        border: none;
+        border-radius: 8px;
+        padding: 10px 14px;
+        cursor: pointer;
+        font-weight: 600;
+      }
+
+      .add-btn {
+        background: #2563eb;
+        color: white;
+      }
+
+      .add-btn:hover {
+        background: #1d4ed8;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      li {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 10px 0;
+        border-bottom: 1px solid #e2e8f0;
+      }
+
+      li:last-child {
+        border-bottom: none;
+      }
+
+      .todo-text {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex: 1;
+      }
+
+      .todo-text.done span {
+        text-decoration: line-through;
+        color: #94a3b8;
+      }
+
+      .delete-btn {
+        background: #ef4444;
+        color: white;
+      }
+
+      .empty-state {
+        text-align: center;
+        color: #64748b;
+        padding: 16px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <h1>📝 Todo App</h1>
+      <p>Add a task, mark it done, or remove it.</p>
+
+      <form id="todo-form" class="input-row">
+        <input id="todo-input" type="text" placeholder="What needs to be done?" required />
+        <button class="add-btn" type="submit">Add</button>
+      </form>
+
+      <ul id="todo-list"></ul>
+    </div>
+
+    <script>
+      const form = document.getElementById("todo-form");
+      const input = document.getElementById("todo-input");
+      const list = document.getElementById("todo-list");
+
+      let todos = JSON.parse(localStorage.getItem("todos")) || [];
+
+      function saveTodos() {
+        localStorage.setItem("todos", JSON.stringify(todos));
+      }
+
+      function renderTodos() {
+        list.innerHTML = "";
+
+        if (todos.length === 0) {
+          list.innerHTML = '<li class="empty-state">No tasks yet. Add one above.</li>';
+          return;
+        }
+
+        todos.forEach((todo) => {
+          const item = document.createElement("li");
+          item.innerHTML = `
+            <label class="todo-text ${todo.done ? "done" : ""}">
+              <input type="checkbox" ${todo.done ? "checked" : ""} />
+              <span>${todo.text}</span>
+            </label>
+            <button class="delete-btn" type="button">Delete</button>
+          `;
+
+          const checkbox = item.querySelector("input[type='checkbox']");
+          const deleteButton = item.querySelector(".delete-btn");
+
+          checkbox.addEventListener("change", () => {
+            todo.done = checkbox.checked;
+            saveTodos();
+            renderTodos();
+          });
+
+          deleteButton.addEventListener("click", () => {
+            todos = todos.filter((entry) => entry.id !== todo.id);
+            saveTodos();
+            renderTodos();
+          });
+
+          list.appendChild(item);
+        });
+      }
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const text = input.value.trim();
+
+        if (!text) return;
+
+        todos.unshift({
+          id: Date.now(),
+          text,
+          done: false,
+        });
+
+        saveTodos();
+        input.value = "";
+        renderTodos();
+      });
+
+      renderTodos();
+    </script>
+  </body>
+</html>
