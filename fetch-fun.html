@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fetch Something Fun</title>
+</head>
+<body>
+
+  <h1>Random Dog</h1>
+  <button onclick="getDog()">Get a Dog</button>
+  <br><br>
+  <div id="result"></div>
+
+  <h1>Random Advice</h1>
+  <button onclick="getAdvice()">Get Advice</button>
+  <br><br>
+  <div id="result2"></div>
+
+  <h1>Surprise Me</h1>
+  <button onclick="surpriseMe()">Surprise Me</button>
+  <br><br>
+  <div id="surpriseResult"></div>
+
+  <script>
+    let currentApi = "dog";
+
+    async function getDog(targetId = "result") {
+      try {
+        let response = await fetch("https://dog.ceo/api/breeds/image/random");
+        let data = await response.json();
+
+        document.getElementById(targetId).innerHTML = "<img src='" + data.message + "' width='300'>";
+
+      } catch (error) {
+        document.getElementById(targetId).innerHTML = "something went wrong";
+        console.log(error);
+      }
+    }
+
+    async function getAdvice(targetId = "result2") {
+      try {
+        let response = await fetch("https://api.adviceslip.com/advice");
+        let data = await response.json();
+
+        document.getElementById(targetId).innerHTML = data.slip.advice;
+
+      } catch (error) {
+        document.getElementById(targetId).innerHTML = "something went wrong";
+        console.log(error);
+      }
+    }
+
+    async function surpriseMe() {
+      if (currentApi === "dog") {
+        await getDog("surpriseResult");
+        currentApi = "advice";
+      } else {
+        await getAdvice("surpriseResult");
+        currentApi = "dog";
+      }
+    }
+  </script>
+
+</body>
+</html> 

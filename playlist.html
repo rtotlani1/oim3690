@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Playlist</title>
+</head>
+<body>
+
+  <h1>My Playlist</h1>
+  <input id="songInput" type="text" placeholder="Enter a song title">
+  <button id="addSongBtn" type="button">Add Song</button>
+  <ul id="playlist"></ul>
+
+  <script>
+    const songs = [
+      "Blinding Lights",
+      "As It Was",
+      "Levitating - Remix",
+      "Peaches",
+      "Stay - Remix"
+    ];
+
+    const playlistEl = document.getElementById("playlist");
+    const songInput = document.getElementById("songInput");
+    const addSongBtn = document.getElementById("addSongBtn");
+
+    function renderPlaylist() {
+      playlistEl.innerHTML = "";
+
+      for (const song of songs) {
+        const li = document.createElement("li");
+        li.textContent = song;
+
+        if (song.includes("Remix")) {
+          li.textContent += " 🔥";
+        }
+
+        playlistEl.appendChild(li);
+      }
+    }
+
+    addSongBtn.addEventListener("click", () => {
+      const newSong = songInput.value.trim();
+
+      if (!newSong) {
+        return;
+      }
+
+      songs.push(newSong);
+      songInput.value = "";
+      renderPlaylist();
+    });
+
+    renderPlaylist();
+  </script>
+
+</body>
+</html>
