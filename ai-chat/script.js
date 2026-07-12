@@ -2,12 +2,24 @@ const STORAGE_KEY = 'ai-chat-history';
 const messagesEl = document.querySelector('#messages');
 const promptEl = document.querySelector('#prompt');
 const composerEl = document.querySelector('#composer');
+const SEED_HISTORY = [
+  { sender: 'user', text: 'Make me a grocery list for the week.' },
+  { sender: 'ai', text: 'Sure — milk, eggs, bread, apples, spinach, pasta, chicken, and yogurt.' },
+  { sender: 'user', text: 'Suggest a few movies for a cozy night in.' },
+  { sender: 'ai', text: 'Try The Grand Budapest Hotel, Paddington 2, and About Time.' }
+];
 
 function readHistory() {
   try {
-    return JSON.parse(sessionStorage.getItem(STORAGE_KEY)) || [];
+    const storedHistory = JSON.parse(sessionStorage.getItem(STORAGE_KEY));
+
+    if (Array.isArray(storedHistory) && storedHistory.length) {
+      return storedHistory;
+    }
+
+    return SEED_HISTORY.map(message => ({ ...message }));
   } catch (error) {
-    return [];
+    return SEED_HISTORY.map(message => ({ ...message }));
   }
 }
 
