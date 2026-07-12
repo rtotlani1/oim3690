@@ -1,13 +1,162 @@
  <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ask AI</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+      background: linear-gradient(135deg, #eef4ff, #f8fbff);
+      color: #1f2937;
+    }
+
+    .chat-shell {
+      width: min(760px, 100%);
+      min-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      background: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 20px 45px rgba(15, 23, 42, 0.12);
+      overflow: hidden;
+    }
+
+    .chat-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid #e5e7eb;
+      background: #f8fbff;
+    }
+
+    .chat-header h1 {
+      margin: 0 0 4px;
+      font-size: 1.25rem;
+    }
+
+    .chat-header p {
+      margin: 0;
+      color: #64748b;
+      font-size: 0.95rem;
+    }
+
+    .messages {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background: linear-gradient(180deg, #f8fbff, #ffffff);
+    }
+
+    .message {
+      max-width: 80%;
+      padding: 12px 14px;
+      border-radius: 16px;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .message.user {
+      align-self: flex-end;
+      background: #2563eb;
+      color: #ffffff;
+      border-bottom-right-radius: 4px;
+    }
+
+    .message.ai {
+      align-self: flex-start;
+      background: #ffffff;
+      color: #1f2937;
+      border: 1px solid #e5e7eb;
+      border-bottom-left-radius: 4px;
+    }
+
+    .message.typing {
+      font-style: italic;
+      color: #64748b;
+    }
+
+    .composer {
+      display: flex;
+      gap: 10px;
+      padding: 16px;
+      border-top: 1px solid #e5e7eb;
+      background: #ffffff;
+    }
+
+    textarea {
+      flex: 1;
+      min-height: 48px;
+      max-height: 180px;
+      resize: none;
+      border: 1px solid #dbe3ee;
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    textarea:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    }
+
+    .send-btn {
+      border: 0;
+      border-radius: 12px;
+      padding: 0 16px;
+      background: #2563eb;
+      color: #ffffff;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .send-btn:hover {
+      background: #1d4ed8;
+    }
+
+    @media (max-width: 700px) {
+      body {
+        padding: 0;
+      }
+
+      .chat-shell {
+        min-height: 100vh;
+        border-radius: 0;
+      }
+    }
+  </style>
 </head>
 <body>
-  <h1>Ask AI</h1>
-  <textarea id="prompt" placeholder="Ask AI anything..."></textarea>
-  <button id="askBtn">Ask</button>
-  <p id="answer"></p>
+  <main class="chat-shell">
+    <header class="chat-header">
+      <h1>Ask AI</h1>
+      <p>Every question and answer stays here, with the newest at the bottom.</p>
+    </header>
+
+    <section id="messages" class="messages" aria-live="polite"></section>
+
+    <form id="composer" class="composer">
+      <textarea id="prompt" placeholder="Ask AI anything..." rows="1"></textarea>
+      <button id="askBtn" class="send-btn" type="submit">Send</button>
+    </form>
+  </main>
 
   <script src="config.js"></script>
   <script src="script.js"></script>
